@@ -1,435 +1,296 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import { adminApi } from '@/lib/api';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import React, { useState, useEffect } from 'react';
+import { storage, User, QuizResult } from '@/lib/storage';
+import CandidateCard from '@/components/admin/CandidateCard';
+import InterviewMonitor from '@/components/admin/InterviewMonitor';
+import UserManagement from '@/components/admin/UserManagement';
+import PastResultsTable from '@/components/admin/PastResultsTable'; // Import new component
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import {
-  Loader2, Plus, Edit, Trash2, Code2, LogOut, 
-  Filter, CheckCircle, AlertCircle
-} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { LogOut, Activity, History, Users } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-interface Question {
-  id: number;
-  pattern: string;
-  question_text: string;
-  difficulty: string;
-  expected_keywords: string[];
-  max_marks: number;
-  is_active: boolean;
+interface Candidate {
+  id: string;
+  name: string;
+  email: string;
+  position: string;
+  interviewStatus: 'ongoing' | 'completed' | 'scheduled';
+  attentionLevel: number;
+  cameraActive: boolean;
+  startTime: string;
+  duration: number;
+  faceFocused: boolean;
+  eyeContact: number;
+  facialExpression: string;
+  attentionHistory?: number[]; 
 }
 
-export default function AdminPage() {
-  const { user, logout, loading: authLoading } = useAuth();
+export default function AdminDashboard() {
   const router = useRouter();
-  
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [patterns, setPatterns] = useState<string[]>([]);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
+
+  // New raw state for History view
+  const [rawUsers, setRawUsers] = useState<User[]>([]);
+  const [rawResults, setRawResults] = useState<QuizResult[]>([]);
+
   const [loading, setLoading] = useState(true);
-  const [filterPattern, setFilterPattern] = useState('');
-  const [filterDifficulty, setFilterDifficulty] = useState('');
-  const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
-  const [formData, setFormData] = useState({
-    pattern: '',
-    question_text: '',
-    difficulty: 'medium',
-    expected_keywords: '',
-    max_marks: 10,
-  });
-
+  // Poll for updates
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/auth/login');
-    } else if (!authLoading && user && user.role !== 'admin') {
-      router.push('/dashboard');
-    }
-  }, [user, authLoading, router]);
+    storage.init();
 
-  useEffect(() => {
-    if (user?.role === 'admin') {
-      loadData();
-    }
-  }, [user, filterPattern, filterDifficulty]);
+    const fetchData = () => {
+      const users = storage.getUsers().filter(u => u.role !== 'admin');
+      const results = storage.getResults();
 
-  const loadData = async () => {
-    setLoading(true);
-    
-    const [questionsResponse, patternsResponse] = await Promise.all([
-      adminApi.getQuestions(filterPattern, filterDifficulty),
-      adminApi.getPatterns(),
-    ]);
+      setRawUsers(users);
+      setRawResults(results);
 
-    if (questionsResponse.data) {
-      setQuestions(questionsResponse.data);
-    }
-    if (patternsResponse.data) {
-      setPatterns(patternsResponse.data);
-    }
-    
-    setLoading(false);
-  };
+      // Transform Users + Results to Candidates 
+      const mappedCandidates: Candidate[] = users.map(user => {
+        // Find latest ongoing or most recent result
+        const userResults = results.filter(r => r.userId === user.id);
+        const activeResult = userResults.find(r => r.status === 'ongoing') ||
+          userResults.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
+        // Calculate duration
+        let duration = 0;
+        if (activeResult?.startTime) {
+          const start = new Date(activeResult.startTime).getTime();
+          const end = activeResult.endTime ? new Date(activeResult.endTime).getTime() : Date.now();
+          duration = Math.floor((end - start) / 1000); // in seconds
+        }
 
-    const keywords = formData.expected_keywords
-      .split(',')
-      .map(k => k.trim())
-      .filter(k => k.length > 0);
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.username,
+          position: 'Candidate',
+          interviewStatus: activeResult ? activeResult.status as any : 'scheduled',
+          attentionLevel: activeResult ? activeResult.attentionScore : 0,
+          cameraActive: activeResult?.status === 'ongoing',
+          startTime: activeResult?.startTime ? new Date(activeResult.startTime).toLocaleTimeString() : '-',
+          duration: duration,
+          attentionHistory: activeResult?.attentionHistory || [], // Pass history
+          faceFocused: (activeResult?.attentionScore || 0) > 60,
+          eyeContact: activeResult?.attentionScore || 0,
+          facialExpression: (activeResult?.attentionScore || 0) > 80 ? 'focused' : 'distracted',
+        };
+      });
 
-    const data = {
-      ...formData,
-      expected_keywords: keywords,
+      setCandidates(mappedCandidates);
+
+      // Update selected candidate if exists
+      if (selectedCandidate) {
+        const updated = mappedCandidates.find(c => c.id === selectedCandidate.id);
+        if (updated) setSelectedCandidate(updated);
+      }
+
+      setLoading(false);
     };
 
-    let response;
-    if (editingQuestion) {
-      response = await adminApi.updateQuestion(editingQuestion.id, data);
-    } else {
-      response = await adminApi.createQuestion(data);
-    }
+    fetchData();
+    const interval = setInterval(fetchData, 2000);
+    return () => clearInterval(interval);
+  }, []); 
 
-    if (response.data) {
-      setSuccess(editingQuestion ? 'Question updated!' : 'Question created!');
-      setIsDialogOpen(false);
-      resetForm();
-      loadData();
-    } else {
-      setError(response.error || 'Operation failed');
-    }
+  const getAttentionColor = (level: number) => {
+    if (level >= 80) return 'bg-green-500';
+    if (level >= 60) return 'bg-yellow-500';
+    return 'bg-red-500';
   };
 
-  const handleEdit = (question: Question) => {
-    setEditingQuestion(question);
-    setFormData({
-      pattern: question.pattern,
-      question_text: question.question_text,
-      difficulty: question.difficulty,
-      expected_keywords: question.expected_keywords.join(', '),
-      max_marks: question.max_marks,
-    });
-    setIsDialogOpen(true);
-  };
-
-  const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this question?')) return;
-
-    const response = await adminApi.deleteQuestion(id);
-    if (response.data || response.data === undefined) {
-      setSuccess('Question deleted!');
-      loadData();
-    } else {
-      setError(response.error || 'Delete failed');
+  const getStatusBadgeVariant = (status: string) => {
+    switch (status) {
+      case 'ongoing':
+        return 'default';
+      case 'completed':
+        return 'secondary';
+      default:
+        return 'outline';
     }
   };
 
-  const resetForm = () => {
-    setFormData({
-      pattern: '',
-      question_text: '',
-      difficulty: 'medium',
-      expected_keywords: '',
-      max_marks: 10,
-    });
-    setEditingQuestion(null);
-  };
+  // Filter for tabs
+  const liveCandidates = candidates.filter(c => c.interviewStatus === 'ongoing' || c.interviewStatus === 'scheduled');
 
-  const getDifficultyColor = (difficulty: string) => {
-    const colors: Record<string, string> = {
-      easy: 'bg-green-500',
-      medium: 'bg-yellow-500',
-      hard: 'bg-red-500',
-    };
-    return colors[difficulty.toLowerCase()] || 'bg-gray-500';
-  };
+  const ongoingCount = candidates.filter(c => c.interviewStatus === 'ongoing').length;
 
-  if (authLoading || loading) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-blue-600 mx-auto" />
-          <p className="mt-4 text-gray-600">Loading admin panel...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p>Loading data...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="bg-white border-b shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Code2 className="h-8 w-8 text-blue-600" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
-                <p className="text-sm text-gray-600">Question Bank Management</p>
-              </div>
-            </div>
-            <Button variant="outline" onClick={logout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+            <p className="text-gray-600">manage users, monitor live interviews, and review results.</p>
           </div>
         </div>
-      </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Success/Error Messages */}
-        {success && (
-          <Alert className="mb-4 bg-green-50 border-green-200">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-700">{success}</AlertDescription>
-          </Alert>
-        )}
-        {error && (
-          <Alert variant="destructive" className="mb-4">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
+        <Tabs defaultValue="live" className="w-full">
+          <TabsList className="mb-6 grid w-full grid-cols-3 max-w-xl">
+            <TabsTrigger value="live" className="flex items-center gap-2">
+              <Activity className="w-4 h-4" />
+              Live Monitor
+            </TabsTrigger>
+            <TabsTrigger value="history" className="flex items-center gap-2">
+              <History className="w-4 h-4" />
+              History & Results
+            </TabsTrigger>
+            <TabsTrigger value="users" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Manage Users
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Filters and Actions */}
-        <Card className="mb-6 shadow-lg">
-          <CardHeader>
-            <CardTitle>Question Bank</CardTitle>
-            <CardDescription>Manage interview questions for code evaluation</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-4 items-end">
-              <div className="flex-1 min-w-[200px]">
-                <Label>Filter by Pattern</Label>
-                <Select value={filterPattern} onValueChange={setFilterPattern}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Patterns" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value=" ">All Patterns</SelectItem>
-                    {patterns.map((pattern) => (
-                      <SelectItem key={pattern} value={pattern}>
-                        {pattern}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex-1 min-w-[200px]">
-                <Label>Filter by Difficulty</Label>
-                <Select value={filterDifficulty} onValueChange={setFilterDifficulty}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All Difficulties" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value=" ">All Difficulties</SelectItem>
-                    <SelectItem value="easy">Easy</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="hard">Hard</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Dialog open={isDialogOpen} onOpenChange={(open) => {
-                setIsDialogOpen(open);
-                if (!open) resetForm();
-              }}>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Question
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>
-                      {editingQuestion ? 'Edit Question' : 'Create New Question'}
-                    </DialogTitle>
-                    <DialogDescription>
-                      {editingQuestion ? 'Update the question details below' : 'Fill in the question details below'}
-                    </DialogDescription>
-                  </DialogHeader>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <Label htmlFor="pattern">Pattern</Label>
-                      <Input
-                        id="pattern"
-                        value={formData.pattern}
-                        onChange={(e) => setFormData({ ...formData, pattern: e.target.value })}
-                        placeholder="e.g., Sorting, Searching, Dynamic Programming"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="question_text">Question Text</Label>
-                      <Textarea
-                        id="question_text"
-                        value={formData.question_text}
-                        onChange={(e) => setFormData({ ...formData, question_text: e.target.value })}
-                        placeholder="Enter the interview question..."
-                        rows={4}
-                        required
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="difficulty">Difficulty</Label>
-                        <Select
-                          value={formData.difficulty}
-                          onValueChange={(value) => setFormData({ ...formData, difficulty: value })}
-                        >
-                          <SelectTrigger id="difficulty">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="easy">Easy</SelectItem>
-                            <SelectItem value="medium">Medium</SelectItem>
-                            <SelectItem value="hard">Hard</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="max_marks">Max Marks</Label>
-                        <Input
-                          id="max_marks"
-                          type="number"
-                          min="1"
-                          max="50"
-                          value={formData.max_marks}
-                          onChange={(e) => setFormData({ ...formData, max_marks: parseInt(e.target.value) })}
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="keywords">Expected Keywords (comma-separated)</Label>
-                      <Input
-                        id="keywords"
-                        value={formData.expected_keywords}
-                        onChange={(e) => setFormData({ ...formData, expected_keywords: e.target.value })}
-                        placeholder="e.g., time complexity, O(n log n), merge sort"
-                        required
-                      />
-                    </div>
-
-                    <div className="flex gap-3 pt-4">
-                      <Button type="submit" className="flex-1">
-                        {editingQuestion ? 'Update Question' : 'Create Question'}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => {
-                          setIsDialogOpen(false);
-                          resetForm();
-                        }}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Questions List */}
-        <div className="space-y-4">
-          {questions.length === 0 ? (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-gray-500">No questions found</p>
-              </CardContent>
-            </Card>
-          ) : (
-            questions.map((question) => (
-              <Card key={question.id} className="shadow hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="outline">{question.pattern}</Badge>
-                        <Badge className={`${getDifficultyColor(question.difficulty)} text-white`}>
-                          {question.difficulty.toUpperCase()}
-                        </Badge>
-                        <span className="text-sm text-gray-500">
-                          {question.max_marks} marks
-                        </span>
-                      </div>
-                      
-                      <p className="text-lg font-medium text-gray-900 mb-3">
-                        {question.question_text}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-1">
-                        {question.expected_keywords.map((keyword, idx) => (
-                          <span
-                            key={idx}
-                            className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
-                          >
-                            {keyword}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-2 flex-shrink-0">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleEdit(question)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDelete(question.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
+          {/* TAB 1: LIVE DASHBOARD */}
+          <TabsContent value="live">
+            {/* Stats Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium text-gray-600">Active Sessions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600">{ongoingCount}</div>
+                  <p className="text-xs text-gray-500 mt-1">Currently taking quiz</p>
                 </CardContent>
               </Card>
-            ))
-          )}
-        </div>
-      </main>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium text-gray-600">Scheduled/Idle</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-gray-600">
+                    {liveCandidates.filter(c => c.interviewStatus === 'scheduled').length}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Waiting to start</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium text-gray-600">Live Attention Avg</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {ongoingCount > 0 ? Math.round(
+                      candidates.filter(c => c.interviewStatus === 'ongoing').reduce((acc, c) => acc + c.attentionLevel, 0) /
+                      ongoingCount
+                    ) : '-'}
+                    {ongoingCount > 0 && '%'}
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Real-time metric</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Left: Active Candidate List */}
+              <div className="lg:col-span-1">
+                <Card className="h-full">
+                  <CardHeader>
+                    <CardTitle>Live Candidates</CardTitle>
+                    <CardDescription>Select a candidate to monitor active session</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                      {liveCandidates.length === 0 && <p className="text-gray-500 text-sm p-4 text-center">No active sessions.</p>}
+                      {liveCandidates.map(candidate => (
+                        <div
+                          key={candidate.id}
+                          onClick={() => setSelectedCandidate(candidate)}
+                          className={`p-3 rounded-lg cursor-pointer transition-all ${selectedCandidate?.id === candidate.id
+                            ? 'bg-blue-50 border-2 border-blue-500'
+                            : 'bg-white border border-gray-200 hover:border-blue-300'
+                            }`}
+                        >
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="font-semibold text-sm">{candidate.name}</p>
+                              <p className="text-xs text-gray-500">{candidate.position}</p>
+                            </div>
+                            <Badge variant={getStatusBadgeVariant(candidate.interviewStatus)}>
+                              {candidate.interviewStatus === 'ongoing' && (
+                                <span className="flex items-center gap-1">
+                                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                  Live
+                                </span>
+                              )}
+                              {candidate.interviewStatus === 'scheduled' && 'Pending'}
+                            </Badge>
+                          </div>
+                          {candidate.interviewStatus === 'ongoing' && (
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs text-gray-600">Current Attention:</span>
+                              <span className={`text-xs font-bold ${getAttentionColor(candidate.attentionLevel)}`}>
+                                {candidate.attentionLevel}%
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Right: Detailed Monitoring */}
+              <div className="lg:col-span-2">
+                {selectedCandidate && (selectedCandidate.interviewStatus === 'ongoing' || selectedCandidate.interviewStatus === 'scheduled') ? (
+                  <Tabs defaultValue="monitoring" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="monitoring">Live Monitoring</TabsTrigger>
+                      <TabsTrigger value="details">Candidate Details</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="monitoring" className="space-y-4">
+                      <InterviewMonitor candidate={selectedCandidate} />
+                    </TabsContent>
+
+                    <TabsContent value="details" className="space-y-4">
+                      <CandidateCard candidate={selectedCandidate} />
+                    </TabsContent>
+                  </Tabs>
+                ) : (
+                  <Card>
+                    <CardContent className="flex items-center justify-center h-96">
+                      <p className="text-gray-500">Select a live candidate to view real-time data</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* TAB 2: HISTORY */}
+          <TabsContent value="history">
+            <PastResultsTable results={rawResults.filter(r => r.status === 'completed')} users={rawUsers} />
+          </TabsContent>
+
+          {/* TAB 3: USERS */}
+          <TabsContent value="users">
+            <UserManagement />
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { AuthProvider } from "@/contexts/AuthContext";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -10,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CodeEval - AI Code Evaluation Platform",
-  description: "Automated code analysis, pattern detection, and intelligent interview evaluation system for Python repositories",
+  title: "AI Code Evaluation Platform",
+  description: "Automated code analysis, pattern detection, and intelligent interview evaluation system for student Python repositories",
   keywords: ["code evaluation", "AI", "code analysis", "algorithm detection", "interview system"],
 };
 
@@ -23,9 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`${inter.className} antialiased`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        {children}
       </body>
     </html>
   );

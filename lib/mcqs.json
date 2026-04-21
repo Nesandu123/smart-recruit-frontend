@@ -1,0 +1,1102 @@
+[
+    {
+        "id": 1,
+        "question": "What is the primary purpose of the Balance Sheet?",
+        "options": [
+            "To show profit",
+            "To report financial position at a specific time",
+            "To track employee salaries",
+            "To show marketing costs"
+        ],
+        "correctAnswer": "To report financial position at a specific time"
+    },
+    {
+        "id": 2,
+        "question": "What does the Income Statement show?",
+        "options": [
+            "Company profit or loss",
+            "Company address",
+            "Employee attendance",
+            "Office equipment list"
+        ],
+        "correctAnswer": "Company profit or loss"
+    },
+    {
+        "id": 3,
+        "question": "What is the basic accounting equation?",
+        "options": [
+            "Assets = Liabilities + Equity",
+            "Assets = Equity - Liabilities",
+            "Equity = Assets + Liabilities",
+            "Assets + Equity = Liabilities"
+        ],
+        "correctAnswer": "Assets = Liabilities + Equity"
+    },
+    {
+        "id": 4,
+        "question": "Which statement shows cash inflows and outflows?",
+        "options": [
+            "Balance Sheet",
+            "Cash Flow Statement",
+            "Income Statement",
+            "Trial Balance"
+        ],
+        "correctAnswer": "Cash Flow Statement"
+    },
+    {
+        "id": 5,
+        "question": "What is an asset?",
+        "options": [
+            "Something the business owns",
+            "Something the business owes",
+            "Employee salary",
+            "Tax payment"
+        ],
+        "correctAnswer": "Something the business owns"
+    },
+    {
+        "id": 6,
+        "question": "What is a liability?",
+        "options": [
+            "Money the business owes",
+            "Business equipment",
+            "Owner investment",
+            "Cash in hand"
+        ],
+        "correctAnswer": "Money the business owes"
+    },
+    {
+        "id": 7,
+        "question": "What is owner's equity?",
+        "options": [
+            "Owner\u2019s investment in the business",
+            "Business debt",
+            "Office rent",
+            "Supplier payment"
+        ],
+        "correctAnswer": "Owner\u2019s investment in the business"
+    },
+    {
+        "id": 8,
+        "question": "Which is an intangible asset?",
+        "options": [
+            "Goodwill",
+            "Inventory",
+            "Equipment",
+            "Cash"
+        ],
+        "correctAnswer": "Goodwill"
+    },
+    {
+        "id": 9,
+        "question": "Which document records daily transactions?",
+        "options": [
+            "Journal",
+            "Invoice",
+            "Ledger",
+            "Balance sheet"
+        ],
+        "correctAnswer": "Journal"
+    },
+    {
+        "id": 10,
+        "question": "Where are journal entries posted?",
+        "options": [
+            "Ledger",
+            "Cash book",
+            "Invoice",
+            "Receipt"
+        ],
+        "correctAnswer": "Ledger"
+    },
+    {
+        "id": 11,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 12,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 13,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 14,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 15,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 16,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 17,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 18,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 19,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 20,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 21,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 22,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 23,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 24,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 25,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 26,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 27,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 28,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 29,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 30,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 31,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 32,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 33,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 34,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 35,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 36,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 37,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 38,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 39,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 40,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 41,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 42,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 43,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 44,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 45,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 46,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 47,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 48,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 49,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 50,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 51,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 52,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 53,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 54,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 55,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 56,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 57,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 58,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 59,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 60,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 61,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 62,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 63,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 64,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 65,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 66,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 67,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 68,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 69,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 70,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 71,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 72,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 73,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 74,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 75,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 76,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 77,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 78,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 79,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 80,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 81,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 82,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 83,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 84,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 85,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 86,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 87,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 88,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 89,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 90,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 91,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 92,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 93,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 94,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 95,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    },
+    {
+        "id": 96,
+        "question": "What is revenue?",
+        "options": [
+            "Income earned by business",
+            "Money owed",
+            "Business asset",
+            "Expense"
+        ],
+        "correctAnswer": "Income earned by business"
+    },
+    {
+        "id": 97,
+        "question": "What is an expense?",
+        "options": [
+            "Cost incurred to run business",
+            "Profit",
+            "Asset purchase",
+            "Owner investment"
+        ],
+        "correctAnswer": "Cost incurred to run business"
+    },
+    {
+        "id": 98,
+        "question": "Which statement shows assets and liabilities?",
+        "options": [
+            "Balance Sheet",
+            "Income Statement",
+            "Cash Flow Statement",
+            "Journal"
+        ],
+        "correctAnswer": "Balance Sheet"
+    },
+    {
+        "id": 99,
+        "question": "What is inventory?",
+        "options": [
+            "Goods for sale",
+            "Office building",
+            "Loan",
+            "Salary"
+        ],
+        "correctAnswer": "Goods for sale"
+    },
+    {
+        "id": 100,
+        "question": "What is depreciation?",
+        "options": [
+            "Decrease in asset value over time",
+            "Increase in asset value",
+            "Tax refund",
+            "Profit"
+        ],
+        "correctAnswer": "Decrease in asset value over time"
+    }
+]
